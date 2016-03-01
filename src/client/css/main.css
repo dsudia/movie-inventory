@@ -8,3 +8,14 @@
   float: left;
   margin-left: 20px;
 }
+
+.thumb {
+  height: 200px;
+  width: 200px;
+  display: block;
+}
+
+.sort {
+  border-right: 1px solid black;
+  padding-right: 5px;
+}

@@ -10,5 +10,38 @@
   <a href='/movies/new' class='btn btn-lg btn-primary float-right'>+ New Movie</a>
 </header>
 
+<section class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-4'>
+      <h1>Movie Inventory</h1>
+    </div>
+    <div class='col-md-8'>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-4'>
+      <a class='sort' href=''>Title</a>
+      <a class='sort' href=''>Year</a>
+      <a class='sort' href=''>Date Obtained</a>
+      <a class='sort' href=''>Rating</a>
+      <a class='sort' href=''>Type</a>
+    </div>
+    <div class='col-md-8'>
+    </div>
+  </div>
+</section>
+
+<section class='container-fluid'>
+  {% for movie in movies %}
+    <div class='col-md-3'
+      <img class='thumb' src='{{ image_url }}' />
+      <h3>{{ title }}</h3>
+      <p>{{ description }}</p>
+      <a href=''>edit</a>
+    </div>
+  {% endfor %}
+</section>
+
+
 
 {% endblock %}
