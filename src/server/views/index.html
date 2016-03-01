@@ -34,9 +34,9 @@
 <section class='container-fluid'>
   {% for movie in movies %}
     <div class='col-md-3'
-      <img class='thumb' src='{{ image_url }}' />
-      <h3>{{ title }}</h3>
-      <p>{{ description }}</p>
+      <img class='thumb' src='{{ movie.image_url }}' />
+      <h3>{{ movie.title }}</h3>
+      <p>{{ movie.description }}</p>
       <a href=''>edit</a>
     </div>
   {% endfor %}

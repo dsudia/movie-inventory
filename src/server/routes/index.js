@@ -2,12 +2,23 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var escape = require('pg-escape');
-var pgp = require('pg-promise');
+var pgpOptions = {
+  promiseLib: Promise,
+};
+var pgp = require('pg-promise')(pgpOptions);
 require('dotenv').config();
-connectionstring = process.env.DB_URL;
+var cn = 'postgres://localhost:5432/movie_inventory_crud';
+var db = pgp(cn);
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  db.many("select * from movies")
+    .then(function (data) {
+      console.log(data);
+      return data;
+    })
+    .then(function (data) {
+      res.render('index', {movies: data});
+    });
 });
 
 module.exports = router;
