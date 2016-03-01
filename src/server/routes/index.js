@@ -88,8 +88,8 @@ router.post('/movies/:id/delete', function(req, res, next) {
   var movieId = req.params.id;
   var movInfo = req.body;
   Movies().where('id', movieId).del()
-  .catch(function(error) {
-    console.log(error);
+  .catch(function(err) {
+    console.log(err);
   }).then(function(data) {
     res.redirect('/');
   });
