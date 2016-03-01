@@ -10,7 +10,7 @@ function Movies () {
 
 router.get('/', function(req, res, next) {
   if (Object.keys(req.query).length === 0) {
-    knex.select().table('movies')
+    Movies().select()
       .then(function(data) {
         res.render('index', {movies: data});
       });
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
     key = key[0];
     var val = req.query[key];
     console.log(key, val);
-    knex.select().table('movies').orderBy(key, val)
+    Movies().select().orderBy(key, val)
       .then(function (data) {
         console.log(data);
         return data;
@@ -38,7 +38,7 @@ router.get('/movies/new', function(req, res, next) {
 
 router.post('/movies', function(req, res, next) {
   var newMov = req.body;
-  knex('movies').insert
+  Movies().insert
   ({title: newMov.title,
     description: newMov.description,
     image_url: newMov.image_url,
@@ -53,6 +53,15 @@ router.post('/movies', function(req, res, next) {
       console.log(data);
       res.redirect('/');
     });
+});
+
+router.get('/movies/:id/edit', function(req, res, next) {
+  var movieId = req.params.id;
+  Movies().where('id', movieId)
+  .then(function(data) {
+    console.log(data);
+    res.render('edit', {movies: data[0]});
+  });
 });
 
 
