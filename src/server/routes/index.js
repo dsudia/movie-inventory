@@ -9,7 +9,6 @@ function Movies () {
 
 
 router.get('/', function(req, res, next) {
-  console.log(req.query);
   if (Object.keys(req.query).length === 0) {
     knex.select().table('movies')
       .then(function(data) {
@@ -31,7 +30,29 @@ router.get('/', function(req, res, next) {
         res.render('index', {movies: data});
       });
   }
+});
 
+router.get('/movies/new', function(req, res, next) {
+  res.render('new');
+});
+
+router.post('/movies', function(req, res, next) {
+  var newMov = req.body;
+  knex('movies').insert
+  ({title: newMov.title,
+    description: newMov.description,
+    image_url: newMov.image_url,
+    year: newMov.year,
+    rating: newMov.rating,
+    notes: newMov.notes,
+    type: newMov.type})
+    .catch(function(error) {
+      console.log(error);
+    })
+    .then(function(data) {
+      console.log(data);
+      res.redirect('/');
+    });
 });
 
 

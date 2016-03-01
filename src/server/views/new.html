@@ -23,8 +23,8 @@
 <section class='container-fluid'>
   <form method='post'>
     <div class='form-group'>
-      <label for='name'>Name</label>
-      <input class='form-control' type='text' name='name' />
+      <label for='name'>Title</label>
+      <input class='form-control' type='text' name='title' />
     </div>
     <div class='form-group'>
       <label for='image_url'>Image URL</label>
@@ -61,7 +61,7 @@
       <label for='notes'>Notes</label>
       <textarea class='form-control' name='notes'></textarea>
     </div>
-    <input type='submit' class='btn btn-lg btn-success' />
+    <input formaction='/movies' type='submit' class='btn btn-lg btn-success' />
   </form>
 </section>
 
