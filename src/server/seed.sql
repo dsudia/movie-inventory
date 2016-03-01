@@ -1,0 +1,17 @@
+insert into movies (title, description, image_url, year, date_obtained, rating, notes, type)
+  values ('The Big Lebowski',
+    'A movie about a Dude.',
+    'http://img.goldposter.com/2015/04/The-Big-Lebowski_poster_goldposter_com_33.jpg',
+    1998,
+    '2005-06-10',
+    9.8,
+    '"The Dude" Lebowski, mistaken for a millionaire Lebowski, seeks restitution for his ruined rug and enlists his bowling buddies to help get it.',
+    'DVD'),
+    ('Inside Out',
+    'A movie about a girls feelings.',
+    'http://screenrant.com/wp-content/uploads/inside-out-poster.jpg',
+    2015,
+    '2016-01-18',
+    9.0,
+    'After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions - Joy, Fear, Anger, Disgust and Sadness - conflict on how best to navigate a new city, house, and school.',
+    'Blu-Ray');
