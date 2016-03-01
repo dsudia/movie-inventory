@@ -20,11 +20,11 @@
   </div>
   <div class='row'>
     <div class='col-md-4'>
-      <a class='sort' href=''>Title</a>
-      <a class='sort' href=''>Year</a>
-      <a class='sort' href=''>Date Obtained</a>
-      <a class='sort' href=''>Rating</a>
-      <a class='sort' href=''>Type</a>
+      <a class='sort' href='/?title=asc'>Title</a>
+      <a class='sort' href='/?year=asc'>Year</a>
+      <a class='sort' href='/?date=asc'>Date Obtained</a>
+      <a class='sort' href='/?rating=desc'>Rating</a>
+      <a class='sort' href='/?type=asc'>Type</a>
     </div>
     <div class='col-md-8'>
     </div>
@@ -33,11 +33,11 @@
 
 <section class='container-fluid'>
   {% for movie in movies %}
-    <div class='col-md-3'
+    <div class='col-md-3'>
       <img class='thumb' src='{{ movie.image_url }}' />
       <h3>{{ movie.title }}</h3>
       <p>{{ movie.description }}</p>
-      <a href=''>edit</a>
+      <a href='/movies/{{ movie.id }}/edit'>edit</a>
     </div>
   {% endfor %}
 </section>
