@@ -66,8 +66,8 @@
       <label for='notes'>Notes</label>
       <textarea class='form-control' name='notes'>{{ movies.notes }}</textarea>
     </div>
-    <input formaction='/movies/:id/edit' value='Edit' type='submit' class='btn btn-lg btn-primary' />
-    <input formaction='/movies/:id/delete' value='Delete' type='submit' class='btn btn-lg btn-danger' />
+    <input formaction='/movies/{{ movies.id }}/edit' value='Submit' type='submit' class='btn btn-lg btn-primary' />
+    <input formaction='/movies/{{ movies.id }}/delete' value='Delete' type='submit' class='btn btn-lg btn-danger' />
   </form>
 </section>
 

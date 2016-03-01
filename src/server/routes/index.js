@@ -64,5 +64,36 @@ router.get('/movies/:id/edit', function(req, res, next) {
   });
 });
 
+router.post('/movies/:id/edit', function(req, res, next) {
+  var movieId = req.params.id;
+  console.log('The movie id is ' + movieId);
+  var movInfo = req.body;
+  console.log(movInfo);
+  Movies().where('id', movieId).update({
+    title: movInfo.title,
+    description: movInfo.description,
+    image_url: movInfo.image_url,
+    year: movInfo.year,
+    rating: movInfo.rating,
+    notes: movInfo.notes,
+    type: movInfo.type
+  }).catch(function(error) {
+    console.log(error);
+  }).then(function(data) {
+    res.redirect('/');
+  });
+});
+
+router.post('/movies/:id/delete', function(req, res, next) {
+  var movieId = req.params.id;
+  var movInfo = req.body;
+  Movies().where('id', movieId).del()
+  .catch(function(error) {
+    console.log(error);
+  }).then(function(data) {
+    res.redirect('/');
+  });
+});
+
 
 module.exports = router;
