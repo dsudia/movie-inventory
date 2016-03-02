@@ -38,6 +38,18 @@
       <h3>{{ movie.title }}</h3>
       <p>{{ movie.description }}</p>
       <a href='/movies/{{ movie.id }}/edit'>edit</a>
+      <form method='post'>
+        <div class='form-group'>
+          <label for='id'>Movie ID</label>
+          <input type='number' value='{{ movie.id}}' readonly />
+        </div>
+        <div class='form-group'>
+          <label for='name'>Name</label>
+          <input type='text' name='name' maxlength='20' required />
+        </div>
+        <input type='submit' value='Borrow' class='btn btn-sm btn-primary' formaction='/api/movies/{{ movie.id }}/borrow' />
+        <input type='submit' value='Return' class='btn btn-sm btn-primary' formaction='/api/movies/{{ movie.id }}/return' />
+      </form>
     </div>
   {% endfor %}
 </section>

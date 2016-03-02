@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var escape = require('pg-escape');
 var knex = require('../knex');
 function Movies () {
   return knex('movies');
@@ -93,6 +92,14 @@ router.post('/movies/:id/delete', function(req, res, next) {
   }).then(function(data) {
     res.redirect('/');
   });
+});
+
+router.post('/api/movies/:id/borrow', function(req,res, next) {
+
+});
+
+router.post('/api/movies/:id/return', function(req,res, next) {
+
 });
 
 
