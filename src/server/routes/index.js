@@ -6,6 +6,10 @@ function Movies () {
   return knex('movies');
 }
 
+function Borrowers () {
+  return knex('borrowers');
+}
+
 
 router.get('/', function(req, res, next) {
   if (Object.keys(req.query).length === 0) {
@@ -96,17 +100,45 @@ router.post('/movies/:id/delete', function(req, res, next) {
 
 router.post('/api/movies/:id/borrow', function(req,res, next) {
   var rentData = req.body;
-  console.log(rentData);
-  if (rentData.name === '' || rentData.name === undefined) {
-    res.status(400).send('You didn\'t include a name');
-  } else {
-  Movies().update({
-      rented: true,
-      renter: rentData.name})
-    .where('id', rentData.id)
-    .then(function() {
-      res.redirect('/');
+  var borrowerId;
+  function borrow () {
+    Borrowers().where({
+      first_name: rentData.first_name,
+      last_name: rentData.last_name
+    })
+    // if so, get borrower id
+    .then(function(data) {
+      return data.id;
+    })
+    // then update Movies with borrow info
+    .then(function(data) {
+      return Movies().update({
+          rented: true,
+          borrower_id: data,
+          date_borrowed: rentData.date_borrowed})
+        .where('id', rentData.id)
+        .then(function() {
+          res.redirect('/');
+        });
+    })
+    // if not, create borrower
+    .catch(function(err) {
+      Borrowers().insert({
+        first_name: rentData.first_name,
+        last_name: rentData.last_name,
+        email: rentData.email
+      })
+      // then do the whole thing over again
+      .then(function(data) {
+        return borrow();
+      });
     });
+  }
+  console.log(rentData);
+  if (!rentData.first_name || !rentData.last_name || !rentData.email) {
+    res.status(400).send('You didn\'t include all in the information');
+  } else {
+    borrow();
   }
 });
 
@@ -118,7 +150,8 @@ router.post('/api/movies/:id/return', function(req,res, next) {
   } else {
     Movies().update({
         rented: false,
-        renter: null})
+        borrower_id: null,
+        date_borrowed: null})
       .where('id', rentData.id)
       .catch(function(err) {
         res.status(400).send(err);

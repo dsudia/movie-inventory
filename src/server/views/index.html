@@ -52,6 +52,7 @@
           {% endif %}
           <form method='post'>
             <input class='hidden' type='number' name='id' value='{{ movie.id}}' readonly />
+            <input class='hidden date-picker' type='date' name='date_borrowed' />
             <div class='form-group'>
               <label for='first_name'>First Name</label><br />
               <input type='text' name='first_name' maxlength='20' required />
