@@ -9,6 +9,10 @@
   margin-left: 20px;
 }
 
+.hidden {
+  display: none;
+}
+
 .thumb {
   height: 200px;
   width: 150px;

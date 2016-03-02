@@ -95,12 +95,40 @@ router.post('/movies/:id/delete', function(req, res, next) {
 });
 
 router.post('/api/movies/:id/borrow', function(req,res, next) {
-
+  var rentData = req.body;
+  console.log(rentData);
+  if (rentData.name === '' || rentData.name === undefined) {
+    res.status(400).send('You didn\'t include a name');
+  } else {
+  Movies().update({
+      rented: true,
+      renter: rentData.name})
+    .where('id', rentData.id)
+    .then(function() {
+      res.redirect('/');
+    });
+  }
 });
 
 router.post('/api/movies/:id/return', function(req,res, next) {
-
+  var rentData = req.body;
+  console.log(rentData);
+  if ((rentData.name === '' || rentData.name === undefined) || (rentData.id === undefined)) {
+    res.status(400).send('You didn\'t include a name');
+  } else {
+    Movies().update({
+        rented: false,
+        renter: null})
+      .where('id', rentData.id)
+      .catch(function(err) {
+        res.status(400).send(err);
+      })
+      .then(function() {
+        res.redirect('/');
+      });
+  }
 });
+
 
 
 module.exports = router;
