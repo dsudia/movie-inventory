@@ -146,22 +146,28 @@ router.post('/api/movies/:id/borrow', function(req,res, next) {
 
 router.post('/api/movies/:id/return', function(req,res, next) {
   var rentData = req.body;
+  var movieId = req.params.id;
   console.log(rentData);
-  if (!rentData.first_name || !rentData.last_name || !rentData.email || !rentData.date_borrowed || !rentData.id) {
-    res.status(400).send('You didn\'t include a name');
-  } else {
-    Movies().update({
-        rented: false,
-        borrower_id: null,
-        date_borrowed: null})
-      .where('id', rentData.id)
-      .catch(function(err) {
-        res.status(400).send(err);
-      })
-      .then(function() {
-        res.redirect('/');
-      });
-  }
+  Movies().select('borrowers.first_name', 'borrowers.last_name')
+    .leftJoin('borrowers', 'movies.borrower_id', 'borrowers.id')
+    .where('movies.id', movieId)
+    .then(function(data) {
+      if (rentData.first_name !== data.first_name && rentData.last_name !== data.last_name) {
+        res.status(400).send('You didn\'t borrow this movie!');
+      } else {
+      Movies().update({
+          rented: false,
+          borrower_id: null,
+          date_borrowed: null})
+        .where('id', rentData.id)
+        .catch(function(err) {
+          res.status(400).send(err);
+        })
+        .then(function() {
+          res.redirect('/');
+        });
+      }
+    });
 });
 
 
