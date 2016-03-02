@@ -45,14 +45,14 @@
           <br /><br />
           {% if movie.rented %}
             <button class='btn btn-sm btn-danger'>Borrowed</button>
-            <p>by {{ movie.renter }}</p>
+            <p>by {{ movie.first_name }} {{ movie.last_name }}</p>
           {% endif %}
           {% if !movie.rented %}
             <button class='btn btn-sm btn-success'>Available</button>
           {% endif %}
           <form method='post'>
-            <input class='hidden' type='number' name='id' value='{{ movie.id}}' readonly />
-            <input class='hidden date-picker' type='date' name='date_borrowed' />
+            <input class='hidden' type='number' name='id' value='{{ movie.id }}' readonly />
+            <input class='hidden date-picker' type='date' name='date_borrowed' readonly />
             <div class='form-group'>
               <label for='first_name'>First Name</label><br />
               <input type='text' name='first_name' maxlength='20' required />
@@ -62,7 +62,7 @@
               <input type='text' name='last_name' maxlength='20' required />
             </div>
             <div class='form-group'>
-              <label for='email'>Last Name</label><br />
+              <label for='email'>Email</label><br />
               <input type='email' name='email' maxlength='40' required />
             </div>
             {% if movie.rented %}
